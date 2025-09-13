@@ -43,4 +43,10 @@ public class ListaCircular {
         return tamanho;
     }
 
+    // Metodo para verificar se a lista está vazia
+    public boolean estaVazia() {
+        return atual == null;
+    }
+
+
 }
