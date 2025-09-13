@@ -42,13 +42,10 @@ public class ListaDeProcessos {
         tamanho--;
         return processoRemovido;
     }
-
-    //verifica se esta vazia
-    public boolean vazia(){
+    public boolean estaVazia() {
         return head == null;
     }
-
-    public int getTamanho(){
-        return tamanho;
+    public int getTamanho() {
+        return this.tamanho;
     }
 }

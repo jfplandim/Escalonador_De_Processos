@@ -43,4 +43,20 @@ public class ListaCircular {
         return tamanho;
     }
 
+    // Metodo para verificar se a lista está vazia
+    public boolean estaVazia() {
+        return atual == null;
+    }
+    public void imprimirLista() {
+        if (atual == null) {
+            System.out.println("Vazia");
+            return;
+        }
+        Node primeiro = atual;
+        do {
+            System.out.print(primeiro.processo.getId() + " ");
+            primeiro = primeiro.next;
+        } while (primeiro != atual);
+        System.out.println();
+    }
 }
