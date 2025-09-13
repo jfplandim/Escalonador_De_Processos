@@ -25,16 +25,19 @@ public class ListaDeProcessos {
 
     public Processos removerDoInicio(){
         if(head == null){
-            return null;
+            return null; //nada para remover
         }
 
         Processos processoRemovido = head.processo;
+
+        //lista com apenas um elemento
         if(head == tail){
             head = null;
             tail = null;
         } else {
-            head = head.next;
-            head.anterior = null;
+            //remover o ultimo
+            head=head.next; //muda a referencia
+            head.anterior=null; //desconecta a tail
         }
         tamanho--;
         return processoRemovido;
