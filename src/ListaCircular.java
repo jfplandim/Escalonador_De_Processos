@@ -64,6 +64,7 @@ public class ListaCircular {
     public boolean estaVazia() {
         return atual == null;
     }
+
     public void imprimirLista() {
         if (atual == null) {
             System.out.println("Vazia");

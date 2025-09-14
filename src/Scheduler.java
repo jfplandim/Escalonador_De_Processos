@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 public class Scheduler {
     private ListaDeProcessos lista_alta_prioridade;
     private ListaDeProcessos lista_media_prioridade;
@@ -6,6 +8,7 @@ public class Scheduler {
     private ListaCircular listaExecucao; //lista circular de execução
 
     private int contador_ciclos_alta_prioridade;
+    private int ciclo_atual;
 
     /*public ListaDeProcessos getLista_alta_prioridade() {
         return lista_alta_prioridade;
@@ -39,6 +42,7 @@ public class Scheduler {
         this.lista_bloqueados = new ListaDeProcessos();
         this.listaExecucao = new ListaCircular();
         this.contador_ciclos_alta_prioridade = 0;
+        this.ciclo_atual = 0;
     }
 
     //adiciona o processo na fila correta de prioridade
@@ -56,8 +60,8 @@ public class Scheduler {
         }
     }
 
-
-    public void desbloquearProcesso() {
+    //desbloqueia processo mais antigo
+    private void desbloquearProcesso() {
         //removeno da lista de desbloqueado
         if (lista_bloqueados.getTamanho() > 0) {
             Processos processoDesbloqueado = lista_bloqueados.removerDoInicio();
@@ -73,7 +77,8 @@ public class Scheduler {
         }
     }
 
-    public void moverProcessosParaExecucao() {
+    //move para lista circular
+    private void moverProcessosParaExecucao() {
         //Regra anti-inanição
         //Processos processoParaExecutar = null;
         if (contador_ciclos_alta_prioridade >= 5) {
@@ -108,7 +113,7 @@ public class Scheduler {
     }
 
     //executa o processo atual
-    public void executarProcessoAtual() {
+    private void executarProcessoAtual() {
         if (listaExecucao.estaVazia()) {
             System.out.println("Nenhum processo na lista de execução.");
             return;
@@ -118,7 +123,7 @@ public class Scheduler {
         System.out.println("Tentando executar: " + processoAtual);
 
         //verificando se precisa de DISCO
-        if (processoAtual.getRecursoNecessario("DISCO")) {
+        if (processoAtual.precisaRecurso("DISCO")) {
             System.out.println("Processo " + processoAtual + " bloqueado por necessitar de DISCO");
 
             //remove da lista e adiciona nos bloqueados
@@ -142,10 +147,70 @@ public class Scheduler {
 
         } else {
             System.out.println("Processo continua na lista circular: " + processoAtual);
-            listaExecucao.avancar();}
-            }
+            listaExecucao.avancar();
         }
     }
 
+    //imprimir estado
+    private void imprimirEstado(){
+        System.out.println("\n--- ESTADO DO SISTEMA ---");
+
+        System.out.print("Lista Alta Prioridade: ");
+        lista_alta_prioridade.imprimir();
+
+        System.out.print("Lista Média Prioridade: ");
+        lista_media_prioridade.imprimir();
+
+        System.out.print("Lista Baixa Prioridade: ");
+        lista_baixa_prioridade.imprimir();
+
+        System.out.print("Lista Bloqueados: ");
+        lista_bloqueados.imprimir();
+
+        System.out.print("Lista Execução Circular: ");
+        listaExecucao.imprimirLista();
+
+        System.out.println("Contador Alta Prioridade: " + contador_ciclos_alta_prioridade);
+        System.out.println("Ciclo Atual: " + ciclo_atual);
+    }
+
+    //executa um ciclo
+    public void executarCicloDeCPU(){
+        ciclo_atual++;
+        System.out.println("CICLO: " + ciclo_atual);
+
+        desbloquearProcesso();
+
+        moverProcessosParaExecucao();
+
+        executarProcessoAtual();
+
+        imprimirEstado();
+    }
+
+    public boolean temProcesso(){
+        return  !lista_alta_prioridade.estaVazia() ||
+                !lista_media_prioridade.estaVazia() ||
+                !lista_baixa_prioridade.estaVazia() ||
+                !lista_bloqueados.estaVazia() ||
+                !listaExecucao.estaVazia();
+    }
+
+    //execução completa
+    public void execucaoCompleta(){
+        System.out.println(" INICIANDO ESCALONADOR DE PROCESSOS");
+
+        while (temProcesso()){
+            executarCicloDeCPU();
+        }
+
+        System.out.println("ESCALONADOR FINALIZADO");
+        System.out.println("Total de ciclos executados: " +ciclo_atual);
+    }
+
 }
+
+
+
+
 
