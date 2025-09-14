@@ -2,9 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class LeitorDeArquivo {
+public class Leitura {
 
-    public static void lerEAdicionarProcessos(String caminhoDoArquivo, Escalonador escalonador) {
+    public static void lerEAdicionarProcessos(String caminhoDoArquivo, Scheduler escalonador) {
 
         // O bloco 'try-with-resources' garante que o arquivo será fechado automaticamente,
         // mesmo que ocorra um erro durante a leitura.
@@ -23,8 +23,8 @@ public class LeitorDeArquivo {
                 // Verifica se a linha tem o número correto de colunas (5, neste caso).
                 if (dados.length == 5) {
                     try {
-                        // Converte a string do primeiro item do array (o ID) para um número inteiro.
-                        // O método `trim()` remove espaços em branco extras, garantindo uma conversão correta.
+                        //Converte a string do primeiro item do array (o ID) para um número inteiro.
+                        //O metodo `trim()` remove espaços em branco extras, garantindo uma conversão correta.
                         int id = Integer.parseInt(dados[0].trim());
 
                         // Pega os outros dados do array. Eles já são strings, então não precisam de conversão.
@@ -39,11 +39,11 @@ public class LeitorDeArquivo {
                         String recursoNecessario = dados[4].trim();
 
                         // Cria um novo objeto `Processo` com os dados que foram lidos e convertidos.
-                        Processo novoProcesso = new Processo(id, nome, prioridade, ciclosNecessarios, recursoNecessario);
+                        Processos novoProcesso = new Processos(id, nome, prioridade, ciclosNecessarios, recursoNecessario);
 
                         // Adiciona o processo recém-criado diretamente ao escalonador. O Escalonador
                         // é responsável por colocá-lo na fila de prioridade correta.
-                        escalonador.adicionarProcesso(novoProcesso);
+                        escalonador.adicionar_Processo(novoProcesso);
                     } catch (NumberFormatException e) {
                         // Este bloco captura erros se algum dado do arquivo não puder ser convertido para um número.
                         System.err.println("Erro ao converter um número na linha: " + linha);
