@@ -1,0 +1,12 @@
+# Arquivo de configuração de processos para o escalonador iCEVOS
+
+1,SistemaCore,1,3,
+2,Antivirus,1,3,DISCO
+3,Firewall,1,2,
+4,Navegador,2,4,
+5,Editor,2,3,DISCO
+6,Calculadora,2,2,
+7,Player,3,8,
+8,Backup,3,3,DISCO
+9,Limpeza,3,3,
+10,Monitor,3,5,

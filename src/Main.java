@@ -23,15 +23,22 @@ public class Main {
                 if (dados.length > 4){
                     recursoNecessario= dados[4].trim();
                 }
-                Processos novoProcesso = new Processos(id, nome, prioridade,ciclosNecessarios, recursoNecessario);
+                Processos novoProcesso = new Processos(id, nome, prioridade,ciclosNecessarios, recursoNecessario); //ajeitar, pq tem isso tanto na classe scheduler quanto na main
                 switch (prioridade){
-                    case 1: scheduler.lista_alta_prioridade.adicionarNoFinal(novoProcesso);
-                    case 2: scheduler.lista_media_prioridade.adicionarNoFinal(novoProcesso);
-                    case 3: scheduler.lista_baixa_prioridade.adicionarNoFinal(novoProcesso);
+                    case 1: scheduler.getLista_alta_prioridade().adicionarNoFinal(novoProcesso);
+                    case 2: scheduler.getLista_media_prioridade().adicionarNoFinal(novoProcesso);
+                    case 3: scheduler.getLista_baixa_prioridade().adicionarNoFinal(novoProcesso);
                     break;
                 }
             }
         }
+        catch (FileNotFoundException e){
+            System.err.println("Arquivo não encontrado.");
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("Simulação do escalonar iniciada.");
+        System.out.println("Simulação finalizada.");
 
 
     }
