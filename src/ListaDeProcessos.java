@@ -50,4 +50,16 @@ public class ListaDeProcessos {
     public int getTamanho() {
         return this.tamanho;
     }
+    public void imprimirLista() {
+        if (head == null) {
+            System.out.println("Vazia");
+            return;
+        }
+        Node atual = head;
+        while (atual != null) {
+            System.out.print(atual.processo.getId() + " ");
+            atual = atual.next;
+        }
+        System.out.println();
+    }
 }
