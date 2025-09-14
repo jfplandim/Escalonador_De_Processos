@@ -15,6 +15,16 @@ public class Scheduler {
     }
 
     public void executarCicloCPU() {
+        if(lista_bloqueados.getTamanho() > 0){
+            Processos processoDesbloqueado = lista_bloqueados.removerDoInicio();
+            if (processoDesbloqueado.prioridade == 1){
+                lista_alta_prioridade.adicionarNoFinal(processoDesbloqueado);
+            } else if (processoDesbloqueado.getPrioridade() == 2) {
+                lista_media_prioridade.adicionarNoFinal(processoDesbloqueado);
+            } else if (processoDesbloqueado.getPrioridade() == 3) {
+               lista_baixa_prioridade.adicionarNoFinal(processoDesbloqueado);
+            }
+        }
         Processos processoParaExecutar = null;
         if (contador_ciclos_alta_prioridade >= 5) {
             if (lista_media_prioridade.tamanho > 0){
@@ -27,8 +37,8 @@ public class Scheduler {
             }
         }
         else if (lista_alta_prioridade.tamanho > 0) {
-    processoParaExecutar = lista_alta_prioridade.removerDoInicio();
-    contador_ciclos_alta_prioridade++;
+             processoParaExecutar = lista_alta_prioridade.removerDoInicio();
+             contador_ciclos_alta_prioridade++;
         }
         else if(lista_media_prioridade.tamanho > 0){
             processoParaExecutar = lista_media_prioridade.removerDoInicio();
@@ -37,6 +47,28 @@ public class Scheduler {
         else if(lista_baixa_prioridade.tamanho > 0){
             processoParaExecutar = lista_baixa_prioridade.removerDoInicio();
             contador_ciclos_alta_prioridade = 0;
+        }
+        if (processoParaExecutar != null){
+            if ("Disco".equals(processoParaExecutar.recuso_necessario)){ //logica de bloqueio;
+                lista_bloqueados.adicionarNoFinal(processoParaExecutar);
+                System.out.println("Processo " + processoParaExecutar.id + " bloqueado.");
+                processoParaExecutar = null;
+            }
+        }
+        if (processoParaExecutar != null){
+            processoParaExecutar.ciclos_necessarios--;
+            if(processoParaExecutar.ciclos_necessarios == 0){
+                System.out.println("Processo " + processoParaExecutar.id + " finalizado.");
+            }
+            else{
+                if(processoParaExecutar.prioridade == 1){
+                    lista_alta_prioridade.adicionarNoFinal(processoParaExecutar);
+                } else if (processoParaExecutar.prioridade == 2) {
+                    lista_media_prioridade.adicionarNoFinal(processoParaExecutar);
+                } else if (processoParaExecutar.prioridade == 3) {
+                    lista_baixa_prioridade.adicionarNoFinal(processoParaExecutar);
+                }
+            }
         }
     }
 
