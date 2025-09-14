@@ -156,16 +156,16 @@ public class Scheduler {
         System.out.println("\n--- ESTADO DO SISTEMA ---");
 
         System.out.print("Lista Alta Prioridade: ");
-        lista_alta_prioridade.imprimir();
+        lista_alta_prioridade.imprimirLista();
 
         System.out.print("Lista Média Prioridade: ");
-        lista_media_prioridade.imprimir();
+        lista_media_prioridade.imprimirLista();
 
         System.out.print("Lista Baixa Prioridade: ");
-        lista_baixa_prioridade.imprimir();
+        lista_baixa_prioridade.imprimirLista();
 
         System.out.print("Lista Bloqueados: ");
-        lista_bloqueados.imprimir();
+        lista_bloqueados.imprimirLista();
 
         System.out.print("Lista Execução Circular: ");
         listaExecucao.imprimirLista();
@@ -198,7 +198,7 @@ public class Scheduler {
 
     //execução completa
     public void execucaoCompleta(){
-        System.out.println(" INICIANDO ESCALONADOR DE PROCESSOS");
+        System.out.println("\n INICIANDO ESCALONADOR DE PROCESSOS");
 
         while (temProcesso()){
             executarCicloDeCPU();
