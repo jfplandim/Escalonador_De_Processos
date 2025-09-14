@@ -92,16 +92,16 @@ public class Scheduler {
     //executa o processo atual
     private void executarProcessoAtual() {
         if (listaExecucao.estaVazia()) {
-            System.out.println("Nenhum processo na lista de execução.");
+            Logger.log("Nenhum processo na lista de execução.");
             return;
         }
 
         Processos processoAtual = listaExecucao.getAtual();
-        System.out.println("Tentando executar: " + processoAtual);
+        Logger.log("Tentando executar: " + processoAtual);
 
         //verificando se precisa de DISCO
         if (processoAtual.precisaRecurso("DISCO")) {
-            System.out.println("Processo " + processoAtual + " bloqueado por necessitar de DISCO");
+            Logger.log("Processo " + processoAtual + " bloqueado por necessitar de DISCO");
 
             //remove da lista e adiciona nos bloqueados
             listaExecucao.removerAtual();
@@ -114,47 +114,47 @@ public class Scheduler {
 
         //executa o processo
         processoAtual.executar();
-        System.out.println("Executado: " + processoAtual +
+        Logger.log("Executado: " + processoAtual +
                 " (Ciclos restantes: " + processoAtual.getCiclosNecessarios() + ")");
 
         // Verificar se processo terminou
         if (processoAtual.getCiclosNecessarios() <= 0) {
-            System.out.println("Processo terminado: " + processoAtual);
+            Logger.log("Processo terminado: " + processoAtual);
             listaExecucao.removerAtual();
 
         } else {
-            System.out.println("Processo continua na lista circular: " + processoAtual);
+            Logger.log("Processo continua na lista circular: " + processoAtual);
             listaExecucao.avancar();
         }
     }
 
     //imprimir estado
     private void imprimirEstado(){
-        System.out.println("\n--- ESTADO DO SISTEMA ---");
+        Logger.log("\n--- ESTADO DO SISTEMA ---");
 
-        System.out.print("Lista Alta Prioridade: ");
+        Logger.log("Lista Alta Prioridade: ");
         lista_alta_prioridade.imprimirLista();
 
-        System.out.print("Lista Média Prioridade: ");
+        Logger.log("Lista Média Prioridade: ");
         lista_media_prioridade.imprimirLista();
 
-        System.out.print("Lista Baixa Prioridade: ");
+        Logger.log("Lista Baixa Prioridade: ");
         lista_baixa_prioridade.imprimirLista();
 
-        System.out.print("Lista Bloqueados: ");
+        Logger.log("Lista Bloqueados: ");
         lista_bloqueados.imprimirLista();
 
-        System.out.print("Lista Execução Circular: ");
+        Logger.log("Lista Execução Circular: ");
         listaExecucao.imprimirLista();
 
-        System.out.println("Contador Alta Prioridade: " + contador_ciclos_alta_prioridade);
-        System.out.println("Ciclo Atual: " + ciclo_atual);
+        Logger.log("Contador Alta Prioridade: " + contador_ciclos_alta_prioridade);
+        Logger.log("Ciclo Atual: " + ciclo_atual);
     }
 
     //executa um ciclo
     public void executarCicloDeCPU(){
         ciclo_atual++;
-        System.out.println("CICLO: " + ciclo_atual);
+        Logger.log("CICLO: " + ciclo_atual);
 
         desbloquearProcesso();
 
@@ -175,14 +175,14 @@ public class Scheduler {
 
     //execução completa
     public void execucaoCompleta(){
-        System.out.println("\n INICIANDO ESCALONADOR DE PROCESSOS");
+        Logger.log("\n INICIANDO ESCALONADOR DE PROCESSOS");
 
         while (temProcesso()){
             executarCicloDeCPU();
         }
 
-        System.out.println("ESCALONADOR FINALIZADO");
-        System.out.println("Total de ciclos executados: " +ciclo_atual);
+        Logger.log("ESCALONADOR FINALIZADO");
+       Logger.log("Total de ciclos executados: " +ciclo_atual);
     }
 
 }
