@@ -1,7 +1,7 @@
 public class ListaDeProcessos {
     private Node head;
     private Node tail;
-    private int tamanho;
+    public int tamanho;
 
     public ListaDeProcessos(){
         this.head = null;
