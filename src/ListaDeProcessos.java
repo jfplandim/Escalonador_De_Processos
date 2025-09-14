@@ -18,6 +18,7 @@ public class ListaDeProcessos {
             tail = newNode;
         } else {
             tail.next = newNode;
+            newNode.anterior = tail;
             tail = newNode;
         }
         tamanho++;
@@ -37,7 +38,8 @@ public class ListaDeProcessos {
             tail = null;
         } else {
             //remover o ultimo
-            head=head.next; //muda a referencia
+            head=head.next;//muda a referencia
+            head.anterior = null;
         }
         tamanho--;
         return processoRemovido;

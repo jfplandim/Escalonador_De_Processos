@@ -3,6 +3,7 @@ public class Scheduler {
     private ListaDeProcessos lista_media_prioridade;
     private ListaDeProcessos lista_baixa_prioridade;
     private ListaDeProcessos lista_bloqueados;
+    private ListaCircular listaExecucao; //lista circular de execução
 
     private int contador_ciclos_alta_prioridade;
 
@@ -11,8 +12,25 @@ public class Scheduler {
         this.lista_media_prioridade = new ListaDeProcessos();
         this.lista_baixa_prioridade = new ListaDeProcessos();
         this.lista_bloqueados = new ListaDeProcessos();
+        this.listaExecucao = new ListaCircular();
         this.contador_ciclos_alta_prioridade = 0;
     }
+
+    //adiciona o processo na fila correta de prioridade
+    public void adicionarProcesso(Processos processo) {
+        switch (processo.getPrioridade()) {
+            case 1:
+                lista_alta_prioridade.adicionarNoFinal(processo);
+                break;
+            case 2:
+                lista_media_prioridade.adicionarNoFinal(processo);
+                break;
+            case 3:
+                lista_baixa_prioridade.adicionarNoFinal(processo);
+                break;
+        }
+    }
+
 
     public void executarCicloCPU() {
         if(lista_bloqueados.getTamanho() > 0){
