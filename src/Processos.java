@@ -33,41 +33,18 @@ public class Processos {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public int getCiclosNecessarios() {
         return ciclosNecessarios;
     }
 
-    public void setCiclosNecessarios(int ciclosNecessarios) {
-        this.ciclosNecessarios = ciclosNecessarios;
-    }
 
     public int getPrioridade() {
         return prioridade;
     }
 
-    public void setPrioridade(int prioridade) {
-        this.prioridade = prioridade;
-    }
 
-    public String getRecursoNecessario() {
-        return recursoNecessario;
-    }
 
-    public void setRecursoNecessario(String recursoNecessario) {
-        this.recursoNecessario = recursoNecessario;
-    }
     @Override
     public String toString() {
         return String.format("P%d(%s,Pr:%d,Ciclos:%d)", id, nome, prioridade, ciclosNecessarios);
