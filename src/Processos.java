@@ -4,6 +4,7 @@ public class Processos {
     private int prioridade; // 1-Alta, 2-Média e 3-Baixa
     private int ciclosNecessarios;
     private String recursoNecessario;
+    private boolean recursoSolicitado;
 
     //construtor
     public Processos (int id, String nome, int prioridade, int ciclosNecessarios, String recursoNecessario){
@@ -12,6 +13,20 @@ public class Processos {
         this.prioridade = prioridade;
         this.ciclosNecessarios = ciclosNecessarios;
         this.recursoNecessario = recursoNecessario;
+    }
+
+    //verifica se o processo solicita recurso e evita ser bloqueado outrs vezes
+    public boolean precisaRecurso(String recurso) {
+        return recurso.equals(recursoNecessario) && !recursoSolicitado;
+    }
+
+    public void marcarRecurso() {
+        this.recursoSolicitado = true;
+    }
+
+    //metodo de execução
+    public void executar() {
+        this.ciclosNecessarios--;
     }
 
     public int getId() {

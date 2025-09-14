@@ -7,7 +7,7 @@ public class Scheduler {
 
     private int contador_ciclos_alta_prioridade;
 
-    public ListaDeProcessos getLista_alta_prioridade() {
+    /*public ListaDeProcessos getLista_alta_prioridade() {
         return lista_alta_prioridade;
     }
 
@@ -29,7 +29,7 @@ public class Scheduler {
 
     public void setLista_baixa_prioridade(ListaDeProcessos lista_baixa_prioridade) {
         this.lista_baixa_prioridade = lista_baixa_prioridade;
-    }
+    } */
 
     public Scheduler() {
 
@@ -89,6 +89,7 @@ public class Scheduler {
             //zera o contador
             contador_ciclos_alta_prioridade = 0;
 
+        //execução padrao
         } else{
             if (lista_alta_prioridade.getTamanho() > 0) {
                 Processos processo = lista_alta_prioridade.removerDoInicio();
@@ -106,28 +107,45 @@ public class Scheduler {
         }
     }
 
-        if (processoParaExecutar != null) {
-            if ("Disco".equals(processoParaExecutar.getRecursoNecessario())) { //logica de bloqueio;
-                lista_bloqueados.adicionarNoFinal(processoParaExecutar);
-                System.out.println("Processo " + processoParaExecutar.getId() + " bloqueado.");
-                processoParaExecutar = null;
-            }
-        }
-        if (processoParaExecutar != null) {
-            processoParaExecutar.getCiclosNecessarios();
-            if (processoParaExecutar.getCiclosNecessarios() == 0) {
-                System.out.println("Processo " + processoParaExecutar.getId() + " finalizado.");
-            } else {
-                if (processoParaExecutar.getPrioridade() == 1) {
-                    lista_alta_prioridade.adicionarNoFinal(processoParaExecutar);
-                } else if (processoParaExecutar.getPrioridade() == 2) {
-                    lista_media_prioridade.adicionarNoFinal(processoParaExecutar);
-                } else if (processoParaExecutar.getPrioridade() == 3) {
-                    lista_baixa_prioridade.adicionarNoFinal(processoParaExecutar);
-                }
-            }
+    //executa o processo atual
+    public void executarProcessoAtual() {
+        if (listaExecucao.estaVazia()) {
+            System.out.println("Nenhum processo na lista de execução.");
+            return;
         }
 
+        Processos processoAtual = listaExecucao.getAtual();
+        System.out.println("Tentando executar: " + processoAtual);
+
+        //verificando se precisa de DISCO
+        if (processoAtual.getRecursoNecessario("DISCO")) {
+            System.out.println("Processo " + processoAtual + " bloqueado por necessitar de DISCO");
+
+            //remove da lista e adiciona nos bloqueados
+            listaExecucao.removerAtual();
+            lista_bloqueados.adicionarNoFinal(processoAtual);
+
+            //marcar processo para n bloquear novamente
+            processoAtual.marcarRecurso();
+            return;
+        }
+
+        //executa o processo
+        processoAtual.executar();
+        System.out.println("Executado: " + processoAtual +
+                " (Ciclos restantes: " + processoAtual.getCiclosNecessarios() + ")");
+
+        // Verificar se processo terminou
+        if (processoAtual.getCiclosNecessarios() <= 0) {
+            System.out.println("Processo terminado: " + processoAtual);
+            listaExecucao.removerAtual();
+
+        } else {
+            System.out.println("Processo continua na lista circular: " + processoAtual);
+            listaExecucao.avancar();}
+            }
+        }
+    }
 
 }
 
