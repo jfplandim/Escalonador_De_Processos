@@ -2,9 +2,26 @@ public class ListaCircular {
     private Node atual;
     private int tamanho;
 
-    public void adicionar(Processos processo){
+    public void adicionarInicio(Processos processo){
         Node novo = new Node(processo);
         if(atual == null){
+            atual = novo;
+            atual.next = atual;
+            atual.anterior = atual;
+        }
+        else{
+            Node ultimo = atual.anterior;
+            ultimo.next = novo;
+            novo.anterior = ultimo;
+            novo.next = atual;
+            atual.anterior = novo;
+            atual = novo;
+        }
+        tamanho++;
+    }
+    public void adicionarFim(Processos processo){
+        Node novo = new Node(processo);
+        if (atual == null){
             atual = novo;
             atual.next = atual;
             atual.anterior = atual;
