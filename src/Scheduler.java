@@ -46,7 +46,7 @@ public class Scheduler {
     }
 
     //adiciona o processo na fila correta de prioridade
-    public void adicionarProcesso(Processos processo) {
+    public void adicionar_Processo(Processos processo) {
         switch (processo.getPrioridade()) {
             case 1:
                 lista_alta_prioridade.adicionarNoFinal(processo);
