@@ -9,6 +9,7 @@ public class ListaDeProcessos {
         this.tamanho = 0;
     }
 
+    //adiciona no final
     public void adicionarNoFinal(Processos processo){
         Node newNode = new Node(processo);
 
@@ -17,12 +18,12 @@ public class ListaDeProcessos {
             tail = newNode;
         } else {
             tail.next = newNode;
-            newNode.anterior = tail;
             tail = newNode;
         }
         tamanho++;
     }
 
+    //remove do inicio
     public Processos removerDoInicio(){
         if(head == null){
             return null; //nada para remover
@@ -37,7 +38,6 @@ public class ListaDeProcessos {
         } else {
             //remover o ultimo
             head=head.next; //muda a referencia
-            head.anterior=null; //desconecta a tail
         }
         tamanho--;
         return processoRemovido;
