@@ -8,5 +8,5 @@ public class Scheduler {
 
     public Scheduler(){
         this.lista_alta_prioridade = new ListaDeProcessos();
-        this.lista_media_prioridade
+        this.lista_media_prioridade = new
 }
