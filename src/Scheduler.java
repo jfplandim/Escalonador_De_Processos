@@ -57,10 +57,13 @@ public class Scheduler {
     }
 
 
-    public void executarCicloCPU() {
-        if(lista_bloqueados.getTamanho() > 0){
+    public void desbloquearProcesso() {
+        //removeno da lista de desbloqueado
+        if (lista_bloqueados.getTamanho() > 0) {
             Processos processoDesbloqueado = lista_bloqueados.removerDoInicio();
-            if (processoDesbloqueado.getPrioridade() == 1){
+
+            //adicionando na lista de prioridade original
+            if (processoDesbloqueado.getPrioridade() == 1) {
                 lista_alta_prioridade.adicionarNoFinal(processoDesbloqueado);
             } else if (processoDesbloqueado.getPrioridade() == 2) {
                 lista_media_prioridade.adicionarNoFinal(processoDesbloqueado);
@@ -68,43 +71,54 @@ public class Scheduler {
                 lista_baixa_prioridade.adicionarNoFinal(processoDesbloqueado);
             }
         }
-        Processos processoParaExecutar = null;
+    }
+
+    public void moverProcessosParaExecucao() {
+        //Regra anti-inanição
+        //Processos processoParaExecutar = null;
         if (contador_ciclos_alta_prioridade >= 5) {
-            if (lista_media_prioridade.getTamanho() > 0){
-                processoParaExecutar = lista_media_prioridade.removerDoInicio();
-                contador_ciclos_alta_prioridade = 0;
+            if (lista_media_prioridade.getTamanho() > 0) {
+                //execução de media
+                Processos processo = lista_media_prioridade.removerDoInicio();
+                listaExecucao.adicionarInicio(processo);
+                //execução de baixa
+            } else if (lista_baixa_prioridade.getTamanho() > 0) {
+                Processos processo = lista_baixa_prioridade.removerDoInicio();
+                listaExecucao.adicionarInicio(processo);
             }
-            else if (lista_baixa_prioridade.getTamanho() > 0) {
-                processoParaExecutar = lista_baixa_prioridade.removerDoInicio();
-                contador_ciclos_alta_prioridade = 0;
+            //zera o contador
+            contador_ciclos_alta_prioridade = 0;
+
+        } else{
+            if (lista_alta_prioridade.getTamanho() > 0) {
+                Processos processo = lista_alta_prioridade.removerDoInicio();
+                listaExecucao.adicionarInicio(processo);
+                contador_ciclos_alta_prioridade++;
+
+            } else if (lista_media_prioridade.getTamanho() > 0) {
+                Processos processo = lista_media_prioridade.removerDoInicio();
+                listaExecucao.adicionarInicio(processo);
+
+            } else if (lista_baixa_prioridade.getTamanho() > 0) {
+                Processos processo = lista_baixa_prioridade.removerDoInicio();
+                listaExecucao.adicionarInicio(processo);
             }
         }
-        else if (lista_alta_prioridade.getTamanho() > 0) {
-            processoParaExecutar = lista_alta_prioridade.removerDoInicio();
-            contador_ciclos_alta_prioridade++;
-        }
-        else if(lista_media_prioridade.getTamanho() > 0){
-            processoParaExecutar = lista_media_prioridade.removerDoInicio();
-            contador_ciclos_alta_prioridade = 0;
-        }
-        else if(lista_baixa_prioridade.getTamanho() > 0){
-            processoParaExecutar = lista_baixa_prioridade.removerDoInicio();
-            contador_ciclos_alta_prioridade = 0;
-        }
-        if (processoParaExecutar != null){
-            if ("Disco".equals(processoParaExecutar.getRecursoNecessario())){ //logica de bloqueio;
+    }
+
+        if (processoParaExecutar != null) {
+            if ("Disco".equals(processoParaExecutar.getRecursoNecessario())) { //logica de bloqueio;
                 lista_bloqueados.adicionarNoFinal(processoParaExecutar);
                 System.out.println("Processo " + processoParaExecutar.getId() + " bloqueado.");
                 processoParaExecutar = null;
             }
         }
-        if (processoParaExecutar != null){
+        if (processoParaExecutar != null) {
             processoParaExecutar.getCiclosNecessarios();
-            if(processoParaExecutar.getCiclosNecessarios() == 0){
+            if (processoParaExecutar.getCiclosNecessarios() == 0) {
                 System.out.println("Processo " + processoParaExecutar.getId() + " finalizado.");
-            }
-            else{
-                if(processoParaExecutar.getPrioridade() == 1){
+            } else {
+                if (processoParaExecutar.getPrioridade() == 1) {
                     lista_alta_prioridade.adicionarNoFinal(processoParaExecutar);
                 } else if (processoParaExecutar.getPrioridade() == 2) {
                     lista_media_prioridade.adicionarNoFinal(processoParaExecutar);
@@ -113,7 +127,7 @@ public class Scheduler {
                 }
             }
         }
-    }
+
 
 }
 
