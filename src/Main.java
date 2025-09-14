@@ -23,10 +23,16 @@ public class Main {
                 if (dados.length > 4){
                     recursoNecessario= dados[4].trim();
                 }
-
-
+                Processos novoProcesso = new Processos(id, nome, prioridade,ciclosNecessarios, recursoNecessario);
+                switch (prioridade){
+                    case 1: scheduler.lista_alta_prioridade.adicionarNoFinal(novoProcesso);
+                    case 2: scheduler.lista_media_prioridade.adicionarNoFinal(novoProcesso);
+                    case 3: scheduler.lista_baixa_prioridade.adicionarNoFinal(novoProcesso);
+                    break;
+                }
             }
         }
+
 
     }
 }
