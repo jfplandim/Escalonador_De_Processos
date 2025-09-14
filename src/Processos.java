@@ -68,4 +68,8 @@ public class Processos {
     public void setRecursoNecessario(String recursoNecessario) {
         this.recursoNecessario = recursoNecessario;
     }
+    @Override
+    public String toString() {
+        return String.format("P%d(%s,Pr:%d,Ciclos:%d)", id, nome, prioridade, ciclosNecessarios);
+    }
 }
