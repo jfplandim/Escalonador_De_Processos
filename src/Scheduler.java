@@ -10,29 +10,6 @@ public class Scheduler {
     private int contador_ciclos_alta_prioridade;
     private int ciclo_atual;
 
-    /*public ListaDeProcessos getLista_alta_prioridade() {
-        return lista_alta_prioridade;
-    }
-
-    public void setLista_alta_prioridade(ListaDeProcessos lista_alta_prioridade) {
-        this.lista_alta_prioridade = lista_alta_prioridade;
-    }
-
-    public ListaDeProcessos getLista_media_prioridade() {
-        return lista_media_prioridade;
-    }
-
-    public void setLista_media_prioridade(ListaDeProcessos lista_media_prioridade) {
-        this.lista_media_prioridade = lista_media_prioridade;
-    }
-
-    public ListaDeProcessos getLista_baixa_prioridade() {
-        return lista_baixa_prioridade;
-    }
-
-    public void setLista_baixa_prioridade(ListaDeProcessos lista_baixa_prioridade) {
-        this.lista_baixa_prioridade = lista_baixa_prioridade;
-    } */
 
     public Scheduler() {
 
