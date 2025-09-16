@@ -10,7 +10,7 @@ public class Scheduler {
     private int contador_ciclos_alta_prioridade;
     private int ciclo_atual;
 
-
+//construtor do scheduler
     public Scheduler() {
 
         this.lista_alta_prioridade = new ListaDeProcessos();
@@ -185,6 +185,7 @@ public class Scheduler {
         imprimirEstado();
     }
 
+    //verificar se tem processos pendentes
     public boolean temProcesso(){
         return  !lista_alta_prioridade.estaVazia() ||
                 !lista_media_prioridade.estaVazia() ||
@@ -193,7 +194,6 @@ public class Scheduler {
                 !listaExecucao.estaVazia();
     }
 
-    //execução completa
     //execução completa
     public void execucaoCompleta(){
         System.out.println("\n INICIANDO ESCALONADOR DE PROCESSOS");
