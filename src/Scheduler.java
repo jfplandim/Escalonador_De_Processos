@@ -171,20 +171,6 @@ public class Scheduler {
         System.out.println("Ciclo Atual: " + ciclo_atual);
     }
 
-    //executa um ciclo
-    public void executarCicloDeCPU(){
-        ciclo_atual++;
-        System.out.println("CICLO: " + ciclo_atual);
-
-        desbloquearProcesso();
-
-        moverProcessosParaExecucao();
-
-        executarProcessoAtual();
-
-        imprimirEstado();
-    }
-
     //verificar se tem processos pendentes
     public boolean temProcesso(){
         return  !lista_alta_prioridade.estaVazia() ||
