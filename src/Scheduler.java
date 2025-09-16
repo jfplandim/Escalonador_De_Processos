@@ -92,16 +92,16 @@ public class Scheduler {
     //executa o processo atual
     private void executarProcessoAtual() {
         if (listaExecucao.estaVazia()) {
-            Logger.log("Nenhum processo na lista de execução.");
+            System.out.println("Nenhum processo na lista de execução.");
             return;
         }
 
         Processos processoAtual = listaExecucao.getAtual();
-        Logger.log("Tentando executar: " + processoAtual);
+        System.out.println("Tentando executar: " + processoAtual);
 
         //verificando se precisa de DISCO
         if (processoAtual.precisaRecurso("DISCO")) {
-            Logger.log("Processo " + processoAtual + " bloqueado por necessitar de DISCO");
+            System.out.println("Processo " + processoAtual + " bloqueado por necessitar de DISCO");
 
             //remove da lista e adiciona nos bloqueados
             listaExecucao.removerAtual();
@@ -114,47 +114,67 @@ public class Scheduler {
 
         //executa o processo
         processoAtual.executar();
-        Logger.log("Executado: " + processoAtual +
-                " (Ciclos restantes: " + processoAtual.getCiclosNecessarios() + ")");
+        System.out.println("Executado: " + processoAtual + " (Ciclos restantes: " + processoAtual.getCiclosNecessarios() + ")");
 
         // Verificar se processo terminou
         if (processoAtual.getCiclosNecessarios() <= 0) {
-            Logger.log("Processo terminado: " + processoAtual);
+            System.out.println("Processo terminado: " + processoAtual);
             listaExecucao.removerAtual();
 
         } else {
-            Logger.log("Processo continua na lista circular: " + processoAtual);
+            System.out.println("Processo continua na lista circular: " + processoAtual);
             listaExecucao.avancar();
         }
     }
 
     //imprimir estado
     private void imprimirEstado(){
-        Logger.log("\n--- ESTADO DO SISTEMA ---");
+        System.out.println("\n--- ESTADO DO SISTEMA ---");
 
-        Logger.log("Lista Alta Prioridade: ");
-        lista_alta_prioridade.imprimirLista();
+        // lista alta Prioridade
+        if (lista_alta_prioridade.estaVazia()) {
+            System.out.println("Primeiro da Lista Alta Prioridade: vazia");
+        } else {
+            System.out.println("Primeiro da Lista Alta Prioridade: " + lista_alta_prioridade.getPrimeiro());
+        }
 
-        Logger.log("Lista Média Prioridade: ");
-        lista_media_prioridade.imprimirLista();
 
-        Logger.log("Lista Baixa Prioridade: ");
-        lista_baixa_prioridade.imprimirLista();
+        // lista média prioridade
+        if (lista_media_prioridade.estaVazia()) {
+            System.out.println("Primeiro da Lista Média Prioridade: vazia");
+        } else {
+            System.out.println("Primeiro da Lista Média Prioridade: " + lista_media_prioridade.getPrimeiro());
+        }
 
-        Logger.log("Lista Bloqueados: ");
-        lista_bloqueados.imprimirLista();
+        // lista baixa prioridade
+        if (lista_baixa_prioridade.estaVazia()) {
+            System.out.println("Primeiro da Lista Baixa Prioridade: vazia");
+        } else {
+            System.out.println("Primeiro da Lista Baixa Prioridade: " + lista_baixa_prioridade.getPrimeiro());
+        }
 
-        Logger.log("Lista Execução Circular: ");
-        listaExecucao.imprimirLista();
+        // lista bloqueados
+        if (lista_bloqueados.estaVazia()) {
+            System.out.println("Primeiro da Lista Bloqueados: vazia");
+        } else {
+            System.out.println("Primeiro da Lista Bloqueados: " + lista_bloqueados.getPrimeiro());
+        }
 
-        Logger.log("Contador Alta Prioridade: " + contador_ciclos_alta_prioridade);
-        Logger.log("Ciclo Atual: " + ciclo_atual);
+        // lista circular
+        if (listaExecucao.estaVazia()) {
+            System.out.println("Processo atual da Lista Circular: vazia");
+        } else {
+            System.out.println("Processo atual da Lista Circular: " + listaExecucao.getAtual());
+        }
+
+        System.out.println("Contador Alta Prioridade: " + contador_ciclos_alta_prioridade);
+        System.out.println("Ciclo Atual: " + ciclo_atual);
     }
 
     //executa um ciclo
     public void executarCicloDeCPU(){
         ciclo_atual++;
-        Logger.log("CICLO: " + ciclo_atual);
+        System.out.println("CICLO: " + ciclo_atual);
 
         desbloquearProcesso();
 
@@ -174,17 +194,28 @@ public class Scheduler {
     }
 
     //execução completa
+    //execução completa
     public void execucaoCompleta(){
-        Logger.log("\n INICIANDO ESCALONADOR DE PROCESSOS");
+        System.out.println("\n INICIANDO ESCALONADOR DE PROCESSOS");
 
         while (temProcesso()){
-            executarCicloDeCPU();
+            ciclo_atual++;
+            System.out.println("\nCICLO: " +ciclo_atual);
+            desbloquearProcesso();
+
+            moverProcessosParaExecucao();
+
+            if (!listaExecucao.estaVazia()) {
+                executarProcessoAtual();
+            }
+            imprimirEstado();
+
+
+
         }
-
-        Logger.log("ESCALONADOR FINALIZADO");
-       Logger.log("Total de ciclos executados: " +ciclo_atual);
+        System.out.println("ESCALONADOR FINALIZADO");
+        System.out.println("Total de ciclos executados: " +ciclo_atual);
     }
-
 }
 
 
