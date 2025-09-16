@@ -62,4 +62,10 @@ public class ListaDeProcessos {
         }
         System.out.println();
     }
+    public Processos getPrimeiro(){
+        if(estaVazia()){
+            return null;
+        }
+        return head.processo;
+    }
 }
