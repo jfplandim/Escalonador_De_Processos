@@ -44,7 +44,7 @@ public class Processos {
     }
 
 
-
+//metodo string da classe processos
     @Override
     public String toString() {
         return String.format("P%d(%s,Pr:%d,Ciclos:%d)", id, nome, prioridade, ciclosNecessarios);

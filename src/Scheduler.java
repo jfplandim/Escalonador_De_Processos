@@ -62,11 +62,11 @@ public class Scheduler {
             if (lista_media_prioridade.getTamanho() > 0) {
                 //execução de media
                 Processos processo = lista_media_prioridade.removerDoInicio();
-                listaExecucao.adicionarInicio(processo);
+                listaExecucao.adicionarFim(processo);
                 //execução de baixa
             } else if (lista_baixa_prioridade.getTamanho() > 0) {
                 Processos processo = lista_baixa_prioridade.removerDoInicio();
-                listaExecucao.adicionarInicio(processo);
+                listaExecucao.adicionarFim(processo);
             }
             //zera o contador
             contador_ciclos_alta_prioridade = 0;
@@ -75,16 +75,16 @@ public class Scheduler {
         } else{
             if (lista_alta_prioridade.getTamanho() > 0) {
                 Processos processo = lista_alta_prioridade.removerDoInicio();
-                listaExecucao.adicionarInicio(processo);
+                listaExecucao.adicionarFim(processo);
                 contador_ciclos_alta_prioridade++;
 
             } else if (lista_media_prioridade.getTamanho() > 0) {
                 Processos processo = lista_media_prioridade.removerDoInicio();
-                listaExecucao.adicionarInicio(processo);
+                listaExecucao.adicionarFim(processo);
 
             } else if (lista_baixa_prioridade.getTamanho() > 0) {
                 Processos processo = lista_baixa_prioridade.removerDoInicio();
-                listaExecucao.adicionarInicio(processo);
+                listaExecucao.adicionarFim(processo);
             }
         }
     }
