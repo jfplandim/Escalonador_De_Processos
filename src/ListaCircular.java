@@ -41,9 +41,6 @@ public class ListaCircular {
         tamanho--;
         return processos;
     }
-    public int getTamanho(){
-        return tamanho;
-    }
 
     // Metodo para verificar se a lista está vazia
     public boolean estaVazia() {
