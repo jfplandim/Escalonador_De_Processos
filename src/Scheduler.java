@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 
 public class Scheduler {
     private ListaDeProcessos lista_alta_prioridade;
