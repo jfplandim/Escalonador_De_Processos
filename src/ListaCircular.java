@@ -56,10 +56,11 @@ public class ListaCircular {
         }
         Node primeiro = atual;
         do{
-            System.out.println(primeiro.processo.getId() + "");
+            System.out.print(primeiro.processo.getId() + " ");
             primeiro = primeiro.next;
         }
         while(primeiro != atual);
         System.out.println();
     }
+
 }
