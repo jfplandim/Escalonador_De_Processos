@@ -59,32 +59,32 @@ Logs no console mostrando os ciclos, estado das listas, bloqueios, desbloqueios 
    ```bash
    java -version
 
-1.1 **Se o java não estiver instalado:
-Abra sua pasta jdks
-Copie o endereço da pasta "bin"
-Cole no cmd:
-   '''bash  
-   Path + endereço
+2. **Se o java não estiver instalado:**
+    Abra sua pasta jdks
+    Copie o endereço da pasta "bin"
+    Cole no cmd:
+      ```bash  
+      Path + endereço
 
-2. **Clone o Repositório:**
+3. **Clone o Repositório:**
    ```bash
    git clone [URL_DO_SEU_REPOSITORIO]
    cd nome-do-repositorio
 
-3. **Compile o Projeto:**
+4. **Compile o Projeto:**
    ```bash
    cd src
    
-4. **Execute o comando abaixo para compilar todas as classes do projeto de uma só vez:**
+5. **Execute o comando abaixo para compilar todas as classes do projeto de uma só vez:**
       ```bash
       javac *.java 
-5. **Execute a Simulação:**
+6. **Execute a Simulação:**
 
    **Volte para a pasta raiz do projeto (o nível acima da src).**
    ```bash
    cd ..
    
-6. **Execute o programa, passando o arquivo de entrada (processos_1000.txt, que já está no repositório) como parâmetro.**
+7. **Execute o programa, passando o arquivo de entrada (processos_1000.txt, que já está no repositório) como parâmetro.**
    ```bash
    java -cp src Main processos_1000.txt
    
