@@ -49,4 +49,17 @@ public class ListaCircular {
     public boolean estaVazia() {
         return atual == null;
     }
+    public void imprimirLista(){
+        if (atual == null){
+            System.out.println("Vazia.");
+            return;
+        }
+        Node primeiro = atual;
+        do{
+            System.out.println(primeiro.processo.getId() + "");
+            primeiro = primeiro.next;
+        }
+        while(primeiro != atual);
+        System.out.println();
+    }
 }

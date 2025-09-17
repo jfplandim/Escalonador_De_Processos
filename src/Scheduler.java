@@ -132,40 +132,25 @@ public class Scheduler {
         System.out.println("\n--- ESTADO DO SISTEMA ---");
 
         // lista alta Prioridade
-        if (lista_alta_prioridade.estaVazia()) {
-            System.out.println("Primeiro da Lista Alta Prioridade: vazia");
-        } else {
-            System.out.println("Primeiro da Lista Alta Prioridade: " + lista_alta_prioridade.getPrimeiro());
-        }
+        System.out.println("Lista alta prioridade");
+        lista_alta_prioridade.imprimirLista();
 
 
         // lista média prioridade
-        if (lista_media_prioridade.estaVazia()) {
-            System.out.println("Primeiro da Lista Média Prioridade: vazia");
-        } else {
-            System.out.println("Primeiro da Lista Média Prioridade: " + lista_media_prioridade.getPrimeiro());
-        }
+            System.out.println("Lista media prioridade");
+            lista_media_prioridade.imprimirLista();
 
         // lista baixa prioridade
-        if (lista_baixa_prioridade.estaVazia()) {
-            System.out.println("Primeiro da Lista Baixa Prioridade: vazia");
-        } else {
-            System.out.println("Primeiro da Lista Baixa Prioridade: " + lista_baixa_prioridade.getPrimeiro());
-        }
+            System.out.println("Lista baixa prioridade");
+            lista_baixa_prioridade.imprimirLista();
 
         // lista bloqueados
-        if (lista_bloqueados.estaVazia()) {
-            System.out.println("Primeiro da Lista Bloqueados: vazia");
-        } else {
-            System.out.println("Primeiro da Lista Bloqueados: " + lista_bloqueados.getPrimeiro());
-        }
+            System.out.println("Lista bloqueados");
+            lista_bloqueados.imprimirLista();
 
         // lista circular
-        if (listaExecucao.estaVazia()) {
-            System.out.println("Processo atual da Lista Circular: vazia");
-        } else {
-            System.out.println("Processo atual da Lista Circular: " + listaExecucao.getAtual());
-        }
+            System.out.println("Lista de execução");
+            listaExecucao.imprimirLista();
 
         System.out.println("Contador Alta Prioridade: " + contador_ciclos_alta_prioridade);
         System.out.println("Ciclo Atual: " + ciclo_atual);
