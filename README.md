@@ -58,6 +58,14 @@ Logs no console mostrando os ciclos, estado das listas, bloqueios, desbloqueios 
    Abra o terminal e digite:
    ```bash
    java -version
+
+1.1 **Se o java não estiver instalado:
+Abra sua pasta jdks
+Copie o endereço da pasta "bin"
+Cole no cmd:
+   '''bash  
+   Path + endereço
+
 2. **Clone o Repositório:**
    ```bash
    git clone [URL_DO_SEU_REPOSITORIO]
